@@ -16,6 +16,7 @@ import {
   Award,
   TrendingUp
 } from "lucide-react";
+import { Link } from "react-router";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
@@ -172,12 +173,12 @@ export default function Home() {
                 Stand out from the competition and land more interviews.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#builder">
+                <Link to="/signup">
                   <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/50 transform hover:-translate-y-0.5 transition-all duration-300">
                     Start Building Free
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                </a>
+                </Link>
                 <a href="#pricing">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-purple-600 text-purple-600 hover:bg-purple-50 hover:border-purple-700 hover:text-purple-700 transform hover:-translate-y-0.5 transition-all duration-300">
                     View Pricing
@@ -679,10 +680,12 @@ export default function Home() {
             Join thousands of job seekers who have landed their dream jobs with ResumeAI
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300">
-              Get Started Free
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            <Link to="/signup">
+              <Button size="lg" className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300">
+                Get Started Free
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
             <a href="#pricing">
               <Button
                 size="lg"

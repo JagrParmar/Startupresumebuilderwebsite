@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, Link } from "react-router";
 import { Button } from "./ui/button";
 import { FileText, Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -52,9 +52,18 @@ export default function Layout() {
                   <span className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 transition-all duration-300 w-0 group-hover:w-full" />
                 </a>
               ))}
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/50 transform hover:-translate-y-0.5 transition-all duration-300">
-                Get Started
-              </Button>
+              <div className="flex items-center gap-3">
+                <Link to="/signin">
+                  <Button variant="outline" className="border-2 border-purple-600 text-purple-600 hover:bg-purple-50 hover:border-purple-700 hover:text-purple-700 transform hover:-translate-y-0.5 transition-all duration-300">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/50 transform hover:-translate-y-0.5 transition-all duration-300">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
             </div>
 
             {/* Mobile menu button */}
@@ -83,9 +92,18 @@ export default function Layout() {
                   {item.name}
                 </a>
               ))}
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
-                Get Started
-              </Button>
+              <div className="flex flex-col gap-3">
+                <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full border-2 border-purple-600 text-purple-600 hover:bg-purple-50">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
         </nav>
