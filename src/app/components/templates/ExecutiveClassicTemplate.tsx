@@ -1,223 +1,183 @@
+interface Experience {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  graduationDate: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  technologies: string;
+  link: string;
+}
+
 interface ResumeData {
   personalInfo: {
-    name: string;
-    address: string;
-    phone: string;
+    fullName: string;
     email: string;
-  };
-  summary: string;
-  experience: Array<{
-    title: string;
-    company: string;
+    phone: string;
     location: string;
-    duration: string;
-    achievements: string[];
-  }>;
-  education: Array<{
-    degree: string;
-    school: string;
-    location: string;
-    year: string;
-  }>;
-  certifications?: string[];
-  professional: {
-    expertise: string[];
-    leadership: string[];
+    linkedin: string;
+    portfolio: string;
+    summary: string;
   };
+  experiences: Experience[];
+  education: Education[];
+  projects: Project[];
+  skills: string;
 }
 
 interface ExecutiveClassicTemplateProps {
+  scale?: number;
   data?: ResumeData;
 }
 
-const defaultData: ResumeData = {
-  personalInfo: {
-    name: "Michael R. Anderson",
-    address: "Boston, MA 02116",
-    phone: "(617) 555-0123",
-    email: "m.anderson@email.com",
-  },
-  summary:
-    "Senior executive with 15+ years of leadership experience driving organizational transformation, revenue growth, and operational excellence. Proven ability to build high-performing teams, develop strategic initiatives, and deliver measurable results.",
-  experience: [
-    {
-      title: "Chief Operating Officer",
-      company: "GlobalTech Solutions",
-      location: "Boston, MA",
-      duration: "2019 - Present",
-      achievements: [
-        "Oversee operations for $500M enterprise software company with 800+ employees across 12 locations",
-        "Led digital transformation initiative resulting in 40% improvement in operational efficiency and $75M in cost savings",
-        "Restructured go-to-market strategy, achieving 28% increase in annual recurring revenue",
-        "Built and mentored executive leadership team, reducing turnover by 35%",
-      ],
-    },
-    {
-      title: "Vice President of Operations",
-      company: "Enterprise Systems Inc.",
-      location: "New York, NY",
-      duration: "2015 - 2019",
-      achievements: [
-        "Directed operations for three business units generating $300M in combined annual revenue",
-        "Implemented lean six sigma methodologies, improving process efficiency by 32% and reducing operational costs by $18M",
-        "Spearheaded international expansion into EMEA region, establishing operations in 5 countries",
-      ],
-    },
-    {
-      title: "Director of Strategic Planning",
-      company: "Tech Innovations Corp.",
-      location: "San Francisco, CA",
-      duration: "2011 - 2015",
-      achievements: [
-        "Developed 5-year strategic plan adopted by board of directors, guiding company through 150% revenue growth",
-        "Conducted market analysis and competitive intelligence to identify new business opportunities",
-        "Led due diligence for 4 acquisitions totaling $200M",
-      ],
-    },
-  ],
-  education: [
-    {
-      degree: "Master of Business Administration (MBA)",
-      school: "Harvard Business School",
-      location: "Boston, MA",
-      year: "2008",
-    },
-    {
-      degree: "Bachelor of Science in Industrial Engineering",
-      school: "Massachusetts Institute of Technology",
-      location: "Cambridge, MA",
-      year: "2003",
-    },
-  ],
-  certifications: [
-    "Certified Six Sigma Black Belt",
-    "Project Management Professional (PMP)",
-  ],
-  professional: {
-    expertise: [
-      "Strategic Planning & Execution",
-      "Operational Excellence",
-      "P&L Management",
-      "Digital Transformation",
-    ],
-    leadership: [
-      "Team Building & Development",
-      "Executive Coaching",
-      "Board Presentations",
-      "Stakeholder Relations",
-    ],
-  },
-};
+export default function ExecutiveClassicTemplate({ scale = 1, data }: ExecutiveClassicTemplateProps) {
+  const personalInfo = data?.personalInfo || {
+    fullName: "Robert Anderson",
+    email: "robert.anderson@email.com",
+    phone: "(202) 555-0147",
+    location: "Washington, DC 20001",
+    linkedin: "linkedin.com/in/robertanderson",
+    portfolio: "",
+    summary: "Strategic executive leader with 15+ years of experience driving organizational growth and operational excellence. Proven expertise in corporate strategy, P&L management, and leading high-performing teams to achieve ambitious business objectives.",
+  };
 
-export default function ExecutiveClassicTemplate({ data = defaultData }: ExecutiveClassicTemplateProps) {
+  const experiences = data?.experiences || [];
+  const education = data?.education || [];
+  const projects = data?.projects || [];
+  const skills = data?.skills || "Strategic Planning, P&L Management, Business Development, Team Leadership, Operations Management, Financial Analysis, Change Management, Stakeholder Engagement";
+
   return (
-    <div className="w-full max-w-[8.5in] mx-auto bg-white p-10 shadow-lg text-black" style={{ minHeight: "11in", maxHeight: "11in" }}>
-      {/* Header - Centered Classic Style */}
-      <div className="text-center mb-4 pb-3 border-b border-gray-400">
-        <h1 className="text-2xl font-bold uppercase tracking-wide mb-2">{data.personalInfo.name}</h1>
-        <div className="text-xs space-y-0.5">
-          <p>{data.personalInfo.address}</p>
+    <div 
+      className="bg-white shadow-lg mx-auto" 
+      style={{ 
+        width: `${8.5 * scale}in`, 
+        minHeight: `${11 * scale}in`,
+        padding: `${0.75 * scale}in ${1 * scale}in`,
+      }}
+    >
+      {/* Classic Header */}
+      <header className="text-center mb-5 pb-3 border-b-2 border-gray-800">
+        <h1 className="text-4xl font-serif mb-2 text-gray-900">{personalInfo.fullName}</h1>
+        <div className="text-xs text-gray-700 space-y-0.5">
           <p>
-            {data.personalInfo.phone} | {data.personalInfo.email}
+            {personalInfo.location}
+            {personalInfo.phone && ` • ${personalInfo.phone}`}
+          </p>
+          <p>
+            {personalInfo.email}
+            {personalInfo.linkedin && ` • ${personalInfo.linkedin}`}
+            {personalInfo.portfolio && ` • ${personalInfo.portfolio}`}
           </p>
         </div>
-      </div>
+      </header>
 
       {/* Executive Summary */}
-      <div className="mb-3.5">
-        <h2 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-1 border-b border-gray-300">
-          Executive Summary
-        </h2>
-        <p className="text-sm leading-relaxed">{data.summary}</p>
-      </div>
-
-      {/* Core Competencies */}
-      <div className="mb-3.5">
-        <h2 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-1 border-b border-gray-300">
-          Core Competencies
-        </h2>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-1">
-          <div>
-            <ul className="space-y-0.5">
-              {data.professional.expertise.map((item, index) => (
-                <li key={index} className="text-sm">
-                  • {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <ul className="space-y-0.5">
-              {data.professional.leadership.map((item, index) => (
-                <li key={index} className="text-sm">
-                  • {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+      {personalInfo.summary && (
+        <section className="mb-4">
+          <h2 className="text-sm font-serif font-bold uppercase mb-2 text-gray-900">
+            Executive Summary
+          </h2>
+          <p className="text-xs text-gray-800 leading-relaxed text-justify">
+            {personalInfo.summary}
+          </p>
+        </section>
+      )}
 
       {/* Professional Experience */}
-      <div className="mb-3.5">
-        <h2 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-1 border-b border-gray-300">
-          Professional Experience
-        </h2>
-        <div className="space-y-2.5">
-          {data.experience.map((exp, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline mb-0.5">
-                <h3 className="text-sm font-bold uppercase">{exp.title}</h3>
-                <span className="text-xs">{exp.duration}</span>
+      {experiences.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-serif font-bold uppercase mb-2 text-gray-900">
+            Professional Experience
+          </h2>
+          {experiences.map((exp) => (
+            <div key={exp.id} className="mb-3">
+              <div className="mb-1">
+                <h3 className="text-sm font-bold text-gray-900">{exp.title}</h3>
+                <div className="flex justify-between items-baseline">
+                  <p className="text-xs italic text-gray-700">{exp.company}, {exp.location}</p>
+                  <span className="text-xs text-gray-600">
+                    {exp.startDate} - {exp.endDate || "Present"}
+                  </span>
+                </div>
               </div>
-              <p className="text-sm italic mb-1">
-                {exp.company}, {exp.location}
-              </p>
-              <ul className="space-y-0.5">
-                {exp.achievements.map((achievement, achIndex) => (
-                  <li key={achIndex} className="text-sm leading-relaxed">
-                    • {achievement}
-                  </li>
+              <ul className="list-disc ml-5 text-xs text-gray-800 space-y-0.5">
+                {exp.description.split('\n').map((line, idx) => (
+                  <li key={idx}>{line.trim().startsWith('•') ? line.substring(1).trim() : line}</li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
-      {/* Education */}
-      <div className="mb-3">
-        <h2 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-1 border-b border-gray-300">Education</h2>
-        <div className="space-y-1.5">
-          {data.education.map((edu, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline">
-                <p className="text-sm font-bold">{edu.degree}</p>
-                <span className="text-xs">{edu.year}</span>
-              </div>
-              <p className="text-sm italic">
-                {edu.school}, {edu.location}
-              </p>
+      {/* Projects */}
+      {projects.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-serif font-bold uppercase mb-2 text-gray-900">
+            Key Projects
+          </h2>
+          {projects.map((proj) => (
+            <div key={proj.id} className="mb-2">
+              <h3 className="text-sm font-bold text-gray-900">
+                {proj.name} <span className="font-normal italic text-gray-700">({proj.technologies})</span>
+              </h3>
+              <p className="text-xs text-gray-800 ml-3">• {proj.description}</p>
+              {proj.link && <p className="text-xs text-gray-600 ml-3">Link: {proj.link}</p>}
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
-      {/* Certifications */}
-      {data.certifications && data.certifications.length > 0 && (
-        <div>
-          <h2 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-1 border-b border-gray-300">
-            Professional Certifications
+      {/* Education */}
+      {education.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-serif font-bold uppercase mb-2 text-gray-900">
+            Education
           </h2>
-          <div className="text-sm">
-            {data.certifications.map((cert, index) => (
-              <span key={index}>
-                {cert}
-                {index < data.certifications!.length - 1 ? " | " : ""}
+          {education.map((edu) => (
+            <div key={edu.id} className="mb-2">
+              <div className="flex justify-between items-baseline">
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900">{edu.degree}</h3>
+                  <p className="text-xs italic text-gray-700">{edu.institution}, {edu.location}</p>
+                </div>
+                <span className="text-xs text-gray-600">{edu.graduationDate}</span>
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Core Competencies */}
+      {skills && (
+        <section>
+          <h2 className="text-sm font-serif font-bold uppercase mb-2 text-gray-900">
+            Core Competencies
+          </h2>
+          <div className="text-xs text-gray-800 flex flex-wrap items-center gap-2">
+            {skills.split(', ').map((skill, idx, arr) => (
+              <span key={idx} className="flex items-center gap-2">
+                <span>{skill.trim()}</span>
+                {idx < arr.length - 1 && <span className="text-gray-400">•</span>}
               </span>
             ))}
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

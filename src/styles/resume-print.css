@@ -1,0 +1,53 @@
+/* Resume Print Styles */
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide non-resume elements when printing */
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Resume page break styles */
+.resume-page {
+  page-break-after: always;
+  break-after: page;
+}
+
+.resume-page:last-child {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Prevent breaking inside important sections */
+.resume-section {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Allow sections to break if too long */
+.resume-section.allow-break {
+  page-break-inside: auto;
+  break-inside: auto;
+}
+
+/* Individual experience/education items should try not to break */
+.resume-item {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Orphan and widow control */
+.resume-content {
+  orphans: 3;
+  widows: 3;
+}

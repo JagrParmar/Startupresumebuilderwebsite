@@ -1,212 +1,207 @@
 import { Mail, Phone, MapPin, Linkedin, Globe } from "lucide-react";
 
+interface Experience {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  graduationDate: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  technologies: string;
+  link: string;
+}
+
 interface ResumeData {
   personalInfo: {
-    name: string;
-    title: string;
-    location: string;
-    phone: string;
+    fullName: string;
     email: string;
+    phone: string;
+    location: string;
     linkedin: string;
-    website: string;
+    portfolio: string;
+    summary: string;
   };
-  summary: string;
-  experience: Array<{
-    title: string;
-    company: string;
-    location: string;
-    duration: string;
-    responsibilities: string[];
-  }>;
-  education: Array<{
-    degree: string;
-    school: string;
-    location: string;
-    duration: string;
-    details?: string;
-  }>;
-  skills: Array<{
-    category: string;
-    items: string[];
-  }>;
+  experiences: Experience[];
+  education: Education[];
+  projects: Project[];
+  skills: string;
 }
 
 interface ModernProfessionalTemplateProps {
+  scale?: number;
   data?: ResumeData;
 }
 
-const defaultData: ResumeData = {
-  personalInfo: {
-    name: "Sarah Johnson",
-    title: "Senior Product Manager",
-    location: "San Francisco, CA",
-    phone: "(555) 123-4567",
+export default function ModernProfessionalTemplate({ scale = 1, data }: ModernProfessionalTemplateProps) {
+  const personalInfo = data?.personalInfo || {
+    fullName: "Sarah Johnson",
     email: "sarah.johnson@email.com",
+    phone: "(415) 555-0199",
+    location: "San Francisco, CA",
     linkedin: "linkedin.com/in/sarahjohnson",
-    website: "sarahjohnson.com",
-  },
-  summary:
-    "Results-driven Product Manager with 7+ years of experience leading cross-functional teams to deliver innovative solutions. Proven track record of launching successful products that drive revenue growth and enhance user experience.",
-  experience: [
-    {
-      title: "Senior Product Manager",
-      company: "TechCorp Inc.",
-      location: "San Francisco, CA",
-      duration: "January 2021 - Present",
-      responsibilities: [
-        "Led product strategy and roadmap for B2B SaaS platform serving 500+ enterprise clients, resulting in 35% YoY revenue growth",
-        "Managed cross-functional team of 12 engineers, designers, and analysts to deliver 4 major product releases",
-        "Implemented data-driven approach to feature prioritization, increasing user engagement by 45%",
-      ],
-    },
-    {
-      title: "Product Manager",
-      company: "StartupXYZ",
-      location: "San Francisco, CA",
-      duration: "June 2018 - December 2020",
-      responsibilities: [
-        "Launched mobile app from 0 to 100K users in first year through strategic feature development and go-to-market planning",
-        "Conducted user research and competitive analysis to identify market gaps and inform product decisions",
-        "Defined and tracked key performance metrics, achieving 90% user retention rate",
-      ],
-    },
-    {
-      title: "Associate Product Manager",
-      company: "Digital Solutions Co.",
-      location: "Austin, TX",
-      duration: "July 2016 - May 2018",
-      responsibilities: [
-        "Supported product development for e-commerce platform processing $50M in annual transactions",
-        "Created detailed product specifications and user stories for engineering team",
-      ],
-    },
-  ],
-  education: [
-    {
-      degree: "Master of Business Administration (MBA)",
-      school: "Stanford Graduate School of Business",
-      location: "Stanford, CA",
-      duration: "2014 - 2016",
-    },
-    {
-      degree: "Bachelor of Science in Computer Science",
-      school: "University of California, Berkeley",
-      location: "Berkeley, CA",
-      duration: "2010 - 2014",
-    },
-  ],
-  skills: [
-    {
-      category: "Product Management",
-      items: ["Product Strategy", "Roadmap Planning", "User Research", "A/B Testing", "Market Analysis", "Feature Prioritization"],
-    },
-    {
-      category: "Technical",
-      items: ["SQL", "Analytics (Mixpanel, Amplitude)", "JIRA", "Figma", "API Design", "Agile/Scrum"],
-    },
-  ],
-};
+    portfolio: "sarahjohnson.com",
+    summary: "Results-driven Product Manager with 8+ years of experience leading cross-functional teams to deliver innovative digital products. Proven track record of driving product strategy, increasing user engagement, and achieving business objectives in fast-paced environments.",
+  };
 
-export default function ModernProfessionalTemplate({ data = defaultData }: ModernProfessionalTemplateProps) {
+  const experiences = data?.experiences || [];
+  const education = data?.education || [];
+  const projects = data?.projects || [];
+  const skills = data?.skills || "Product Strategy, Roadmap Planning, Agile/Scrum, User Research, A/B Testing, SQL, JIRA, Figma, Analytics (Google Analytics, Mixpanel), Stakeholder Management";
+
   return (
-    <div className="w-full max-w-[8.5in] mx-auto bg-white p-10 shadow-lg text-black" style={{ minHeight: "11in", maxHeight: "11in" }}>
-      {/* Header */}
-      <div className="mb-4 pb-3 border-b-2 border-gray-800">
-        <h1 className="text-3xl font-bold mb-1">{data.personalInfo.name}</h1>
-        <h2 className="text-base text-gray-700 mb-2">{data.personalInfo.title}</h2>
-        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600">
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3" />
-            <span>{data.personalInfo.location}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Phone className="w-3 h-3" />
-            <span>{data.personalInfo.phone}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Mail className="w-3 h-3" />
-            <a href={`mailto:${data.personalInfo.email}`} className="hover:underline">
-              {data.personalInfo.email}
-            </a>
-          </div>
-          <div className="flex items-center gap-1">
-            <Linkedin className="w-3 h-3" />
-            <a href={`https://${data.personalInfo.linkedin}`} className="hover:underline">
-              {data.personalInfo.linkedin}
-            </a>
-          </div>
-          <div className="flex items-center gap-1">
-            <Globe className="w-3 h-3" />
-            <a href={`https://${data.personalInfo.website}`} className="hover:underline">
-              {data.personalInfo.website}
-            </a>
-          </div>
+    <div 
+      className="bg-white shadow-lg mx-auto" 
+      style={{ 
+        width: `${8.5 * scale}in`, 
+        minHeight: `${11 * scale}in`,
+        padding: `${0.5 * scale}in ${0.75 * scale}in`,
+      }}
+    >
+      {/* Header with accent bar */}
+      <header className="mb-4 border-l-4 border-blue-600 pl-4">
+        <h1 className="text-3xl font-bold text-gray-900 mb-1">{personalInfo.fullName}</h1>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600">
+          {personalInfo.location && (
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3 h-3" />
+              {personalInfo.location}
+            </span>
+          )}
+          {personalInfo.phone && (
+            <span className="flex items-center gap-1">
+              <Phone className="w-3 h-3" />
+              {personalInfo.phone}
+            </span>
+          )}
+          {personalInfo.email && (
+            <span className="flex items-center gap-1">
+              <Mail className="w-3 h-3" />
+              {personalInfo.email}
+            </span>
+          )}
+          {personalInfo.linkedin && (
+            <span className="flex items-center gap-1">
+              <Linkedin className="w-3 h-3" />
+              {personalInfo.linkedin}
+            </span>
+          )}
+          {personalInfo.portfolio && (
+            <span className="flex items-center gap-1">
+              <Globe className="w-3 h-3" />
+              {personalInfo.portfolio}
+            </span>
+          )}
         </div>
-      </div>
+      </header>
 
       {/* Professional Summary */}
-      <div className="mb-3.5">
-        <h3 className="text-sm font-bold mb-1.5 text-gray-800 uppercase tracking-wide">Professional Summary</h3>
-        <p className="text-sm leading-relaxed text-gray-700">{data.summary}</p>
-      </div>
+      {personalInfo.summary && (
+        <section className="mb-4">
+          <h2 className="text-sm font-bold uppercase text-blue-600 mb-2 border-b border-gray-300 pb-1">
+            Professional Summary
+          </h2>
+          <p className="text-xs text-gray-800 leading-relaxed">{personalInfo.summary}</p>
+        </section>
+      )}
 
       {/* Professional Experience */}
-      <div className="mb-3.5">
-        <h3 className="text-sm font-bold mb-2 text-gray-800 uppercase tracking-wide">Professional Experience</h3>
-        <div className="space-y-3">
-          {data.experience.map((exp, index) => (
-            <div key={index}>
+      {experiences.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-bold uppercase text-blue-600 mb-2 border-b border-gray-300 pb-1">
+            Professional Experience
+          </h2>
+          {experiences.map((exp) => (
+            <div key={exp.id} className="mb-3">
               <div className="flex justify-between items-baseline mb-0.5">
-                <h4 className="text-sm font-bold">{exp.title}</h4>
-                <span className="text-xs text-gray-600">{exp.duration}</span>
+                <h3 className="text-sm font-bold text-gray-900">{exp.title}</h3>
+                <span className="text-xs text-gray-600">
+                  {exp.startDate} - {exp.endDate || "Present"}
+                </span>
               </div>
               <div className="flex justify-between items-baseline mb-1.5">
-                <p className="text-sm font-semibold text-gray-700">{exp.company}</p>
+                <p className="text-xs font-semibold text-gray-700">{exp.company}</p>
                 <span className="text-xs text-gray-600">{exp.location}</span>
               </div>
-              <ul className="list-disc ml-5 space-y-0.5">
-                {exp.responsibilities.map((resp, respIndex) => (
-                  <li key={respIndex} className="text-sm leading-relaxed text-gray-700">
-                    {resp}
-                  </li>
+              <ul className="list-disc ml-5 text-xs text-gray-800 space-y-0.5">
+                {exp.description.split('\n').map((line, idx) => (
+                  <li key={idx}>{line.trim().startsWith('•') ? line.substring(1).trim() : line}</li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
+
+      {/* Projects */}
+      {projects.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-bold uppercase text-blue-600 mb-2 border-b border-gray-300 pb-1">
+            Projects
+          </h2>
+          {projects.map((proj) => (
+            <div key={proj.id} className="mb-2">
+              <h3 className="text-sm font-bold text-gray-900">
+                {proj.name} | <span className="font-normal">{proj.technologies}</span>
+              </h3>
+              <p className="text-xs text-gray-800 ml-3">• {proj.description}</p>
+              {proj.link && <p className="text-xs text-gray-600 ml-3">Link: {proj.link}</p>}
+            </div>
+          ))}
+        </section>
+      )}
 
       {/* Education */}
-      <div className="mb-3.5">
-        <h3 className="text-sm font-bold mb-2 text-gray-800 uppercase tracking-wide">Education</h3>
-        <div className="space-y-2">
-          {data.education.map((edu, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline mb-0.5">
-                <h4 className="text-sm font-bold">{edu.degree}</h4>
-                <span className="text-xs text-gray-600">{edu.duration}</span>
+      {education.length > 0 && (
+        <section className="mb-4">
+          <h2 className="text-sm font-bold uppercase text-blue-600 mb-2 border-b border-gray-300 pb-1">
+            Education
+          </h2>
+          {education.map((edu) => (
+            <div key={edu.id} className="mb-2">
+              <div className="flex justify-between items-baseline">
+                <h3 className="text-sm font-bold text-gray-900">{edu.degree}</h3>
+                <span className="text-xs text-gray-600">{edu.graduationDate}</span>
               </div>
               <div className="flex justify-between items-baseline">
-                <p className="text-sm font-semibold text-gray-700">{edu.school}</p>
+                <p className="text-xs text-gray-700">{edu.institution}</p>
                 <span className="text-xs text-gray-600">{edu.location}</span>
               </div>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
       {/* Skills */}
-      <div>
-        <h3 className="text-sm font-bold mb-2 text-gray-800 uppercase tracking-wide">Skills</h3>
-        <div className="space-y-1.5">
-          {data.skills.map((skillGroup, index) => (
-            <div key={index} className="text-sm">
-              <span className="font-bold text-gray-800">{skillGroup.category}: </span>
-              <span className="text-gray-700">{skillGroup.items.join(" • ")}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {skills && (
+        <section>
+          <h2 className="text-sm font-bold uppercase text-blue-600 mb-2 border-b border-gray-300 pb-1">
+            Skills
+          </h2>
+          <div className="text-xs text-gray-800 flex flex-wrap items-center gap-2">
+            {skills.split(', ').map((skill, idx, arr) => (
+              <span key={idx} className="flex items-center gap-2">
+                <span>{skill.trim()}</span>
+                {idx < arr.length - 1 && <span className="text-gray-400">|</span>}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

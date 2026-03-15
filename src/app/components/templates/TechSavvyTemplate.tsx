@@ -1,265 +1,208 @@
-import { Mail, Phone, Github, Linkedin, Globe, MapPin } from "lucide-react";
+import { Terminal, Mail, Github, Linkedin, Globe } from "lucide-react";
+
+interface Experience {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  graduationDate: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  technologies: string;
+  link: string;
+}
 
 interface ResumeData {
   personalInfo: {
-    name: string;
-    title: string;
-    location: string;
+    fullName: string;
     email: string;
     phone: string;
-    github: string;
+    location: string;
     linkedin: string;
-    website: string;
+    portfolio: string;
+    summary: string;
   };
-  summary: string;
-  technicalSkills: {
-    languages: string[];
-    frameworks: string[];
-    databases: string[];
-    tools: string[];
-    cloud: string[];
-  };
-  experience: Array<{
-    title: string;
-    company: string;
-    location: string;
-    duration: string;
-    achievements: string[];
-    technologies: string[];
-  }>;
-  projects: Array<{
-    name: string;
-    description: string;
-    technologies: string[];
-    highlights: string[];
-  }>;
-  education: Array<{
-    degree: string;
-    school: string;
-    location: string;
-    duration: string;
-    gpa?: string;
-  }>;
+  experiences: Experience[];
+  education: Education[];
+  projects: Project[];
+  skills: string;
 }
 
 interface TechSavvyTemplateProps {
+  scale?: number;
   data?: ResumeData;
 }
 
-const defaultData: ResumeData = {
-  personalInfo: {
-    name: "Alex Chen",
-    title: "Full Stack Software Engineer",
+export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplateProps) {
+  const personalInfo = data?.personalInfo || {
+    fullName: "Alex Chen",
+    email: "alex.chen@devmail.com",
+    phone: "",
     location: "Seattle, WA",
-    email: "alex.chen@email.com",
-    phone: "+1 (206) 555-0199",
-    github: "github.com/alexchen",
     linkedin: "linkedin.com/in/alexchen",
-    website: "alexchen.dev",
-  },
-  summary:
-    "Software engineer with 5+ years of experience building scalable web applications and distributed systems. Strong background in full-stack development with expertise in modern JavaScript frameworks and cloud infrastructure.",
-  technicalSkills: {
-    languages: ["JavaScript/TypeScript", "Python", "Java", "Go"],
-    frameworks: ["React", "Node.js", "Next.js", "Django"],
-    databases: ["PostgreSQL", "MongoDB", "Redis"],
-    tools: ["Git", "Docker", "Kubernetes", "Jenkins"],
-    cloud: ["AWS", "Azure", "GCP"],
-  },
-  experience: [
-    {
-      title: "Senior Software Engineer",
-      company: "CloudTech Solutions",
-      location: "Seattle, WA",
-      duration: "March 2021 - Present",
-      technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "AWS"],
-      achievements: [
-        "Architected microservices-based platform handling 10M+ requests daily with 99.9% uptime",
-        "Led migration from monolithic architecture to microservices, reducing deployment time by 70%",
-        "Implemented CI/CD pipeline using Jenkins and Docker, enabling automated testing and deployments",
-        "Mentored team of 4 junior engineers, conducting code reviews and technical design sessions",
-      ],
-    },
-    {
-      title: "Software Engineer",
-      company: "StartupHub Inc.",
-      location: "San Francisco, CA",
-      duration: "June 2019 - February 2021",
-      technologies: ["React", "Node.js", "MongoDB", "Express"],
-      achievements: [
-        "Developed real-time collaboration features using WebSockets, supporting 50K concurrent users",
-        "Built RESTful APIs and GraphQL endpoints serving data to web and mobile applications",
-        "Created automated testing suite with 85% code coverage using Jest and Cypress",
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "DevCollab - Open Source Platform",
-      description: "Real-time code collaboration tool for distributed teams",
-      technologies: ["Next.js", "WebRTC", "Socket.io", "MongoDB"],
-      highlights: [
-        "Built collaborative code editor with live cursor tracking and synchronized editing",
-        "Achieved 2.5K+ stars on GitHub with active community of 500+ developers",
-      ],
-    },
-  ],
-  education: [
-    {
-      degree: "Bachelor of Science in Computer Science",
-      school: "University of Washington",
-      location: "Seattle, WA",
-      duration: "2014 - 2018",
-      gpa: "3.7/4.0",
-    },
-  ],
-};
+    portfolio: "github.com/alexchen",
+    summary: "Full-stack developer passionate about building scalable applications and clean code. Experienced in modern JavaScript frameworks and cloud technologies.",
+  };
 
-export default function TechSavvyTemplate({ data = defaultData }: TechSavvyTemplateProps) {
+  const experiences = data?.experiences || [];
+  const education = data?.education || [];
+  const projects = data?.projects || [];
+  const skills = data?.skills || "JavaScript, TypeScript, Python, React, Node.js, Next.js, GraphQL, PostgreSQL, MongoDB, Redis, Docker, Kubernetes, AWS, CI/CD, Git";
+
   return (
-    <div className="w-full max-w-[8.5in] mx-auto bg-white p-10 shadow-lg text-black" style={{ minHeight: "11in", maxHeight: "11in" }}>
-      {/* Header */}
-      <div className="mb-4">
-        <h1 className="text-2xl font-bold mb-1">{data.personalInfo.name}</h1>
-        <h2 className="text-sm text-gray-700 mb-2">{data.personalInfo.title}</h2>
-        <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs">
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3" />
-            <span>{data.personalInfo.location}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Mail className="w-3 h-3" />
-            <span>{data.personalInfo.email}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Phone className="w-3 h-3" />
-            <span>{data.personalInfo.phone}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Github className="w-3 h-3" />
-            <span>{data.personalInfo.github}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Linkedin className="w-3 h-3" />
-            <span>{data.personalInfo.linkedin}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Globe className="w-3 h-3" />
-            <span>{data.personalInfo.website}</span>
-          </div>
+    <div 
+      className="bg-gradient-to-br from-slate-50 to-gray-100 shadow-lg mx-auto" 
+      style={{ 
+        width: `${8.5 * scale}in`, 
+        minHeight: `${11 * scale}in`,
+        padding: `${0.5 * scale}in ${0.75 * scale}in`,
+      }}
+    >
+      {/* Modern Tech Header */}
+      <header className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-lg mb-4 shadow-md">
+        <div className="flex items-center gap-2 mb-2">
+          <Terminal className="w-5 h-5" />
+          <h1 className="text-2xl font-bold">{personalInfo.fullName}</h1>
         </div>
-      </div>
-
-      {/* Summary */}
-      <div className="mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-0.5 border-b-2 border-gray-800">Summary</h3>
-        <p className="text-sm leading-relaxed">{data.summary}</p>
-      </div>
-
-      {/* Technical Skills */}
-      <div className="mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-0.5 border-b-2 border-gray-800">
-          Technical Skills
-        </h3>
-        <div className="space-y-0.5 text-sm">
-          <div>
-            <span className="font-semibold">Languages: </span>
-            <span>{data.technicalSkills.languages.join(", ")}</span>
-          </div>
-          <div>
-            <span className="font-semibold">Frameworks: </span>
-            <span>{data.technicalSkills.frameworks.join(", ")}</span>
-          </div>
-          <div>
-            <span className="font-semibold">Databases: </span>
-            <span>{data.technicalSkills.databases.join(", ")}</span>
-          </div>
-          <div>
-            <span className="font-semibold">Tools: </span>
-            <span>{data.technicalSkills.tools.join(", ")}</span>
-          </div>
-          <div>
-            <span className="font-semibold">Cloud: </span>
-            <span>{data.technicalSkills.cloud.join(", ")}</span>
-          </div>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+          {personalInfo.email && (
+            <span className="flex items-center gap-1">
+              <Mail className="w-3 h-3" />
+              {personalInfo.email}
+            </span>
+          )}
+          {personalInfo.portfolio && (
+            <span className="flex items-center gap-1">
+              <Github className="w-3 h-3" />
+              {personalInfo.portfolio}
+            </span>
+          )}
+          {personalInfo.linkedin && (
+            <span className="flex items-center gap-1">
+              <Linkedin className="w-3 h-3" />
+              {personalInfo.linkedin}
+            </span>
+          )}
+          {personalInfo.location && (
+            <span className="flex items-center gap-1">
+              <Globe className="w-3 h-3" />
+              {personalInfo.location}
+            </span>
+          )}
         </div>
-      </div>
+      </header>
 
-      {/* Professional Experience */}
-      <div className="mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-0.5 border-b-2 border-gray-800">
-          Professional Experience
-        </h3>
-        <div className="space-y-2.5">
-          {data.experience.map((exp, index) => (
-            <div key={index}>
+      {/* About */}
+      {personalInfo.summary && (
+        <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
+          <h2 className="text-sm font-bold uppercase text-purple-600 mb-1.5 flex items-center gap-1">
+            <span className="text-purple-600">$</span> About
+          </h2>
+          <p className="text-xs text-gray-800 leading-relaxed">{personalInfo.summary}</p>
+        </section>
+      )}
+
+      {/* Experience */}
+      {experiences.length > 0 && (
+        <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
+          <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
+            <span className="text-purple-600">$</span> Experience
+          </h2>
+          {experiences.map((exp) => (
+            <div key={exp.id} className="mb-2.5 last:mb-0">
               <div className="flex justify-between items-baseline mb-0.5">
-                <h4 className="text-sm font-bold">{exp.title}</h4>
-                <span className="text-xs text-gray-600">{exp.duration}</span>
+                <h3 className="text-sm font-bold text-gray-900">{exp.title}</h3>
+                <span className="text-xs text-gray-500">
+                  {exp.startDate} - {exp.endDate || "Present"}
+                </span>
               </div>
-              <div className="flex justify-between items-baseline mb-1">
-                <p className="text-sm font-semibold text-gray-700">{exp.company}</p>
-                <span className="text-xs text-gray-600">{exp.location}</span>
-              </div>
-              <p className="text-xs italic text-gray-600 mb-1">
-                <span className="font-semibold">Tech:</span> {exp.technologies.join(", ")}
-              </p>
-              <ul className="list-disc ml-4 space-y-0.5">
-                {exp.achievements.map((achievement, achIndex) => (
-                  <li key={achIndex} className="text-sm leading-relaxed">
-                    {achievement}
+              <p className="text-xs text-purple-600 mb-1">{exp.company} • {exp.location}</p>
+              <ul className="space-y-0.5 text-xs text-gray-700">
+                {exp.description.split('\n').map((line, idx) => (
+                  <li key={idx} className="flex gap-1">
+                    <span className="text-purple-600">▹</span>
+                    <span>{line.trim().startsWith('•') ? line.substring(1).trim() : line}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
       {/* Projects */}
-      <div className="mb-3">
-        <h3 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-0.5 border-b-2 border-gray-800">
-          Featured Projects
-        </h3>
-        <div className="space-y-2">
-          {data.projects.map((project, index) => (
-            <div key={index}>
-              <h4 className="text-sm font-bold mb-0.5">{project.name}</h4>
-              <p className="text-sm italic text-gray-700 mb-0.5">{project.description}</p>
-              <p className="text-xs text-gray-600 mb-1">
-                <span className="font-semibold">Tech:</span> {project.technologies.join(", ")}
+      {projects.length > 0 && (
+        <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
+          <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
+            <span className="text-purple-600">$</span> Projects
+          </h2>
+          {projects.map((proj) => (
+            <div key={proj.id} className="mb-2 last:mb-0">
+              <h3 className="text-sm font-bold text-gray-900">
+                {proj.name} <span className="text-xs font-normal text-gray-600">// {proj.technologies}</span>
+              </h3>
+              <p className="text-xs text-gray-700 ml-3 flex gap-1">
+                <span className="text-purple-600">▹</span>
+                <span>{proj.description}</span>
               </p>
-              <ul className="list-disc ml-4 space-y-0.5">
-                {project.highlights.map((highlight, highlightIndex) => (
-                  <li key={highlightIndex} className="text-sm leading-relaxed">
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
+              {proj.link && (
+                <p className="text-xs text-blue-600 ml-3">🔗 {proj.link}</p>
+              )}
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
       {/* Education */}
-      <div>
-        <h3 className="text-xs font-bold uppercase tracking-wide mb-1.5 pb-0.5 border-b-2 border-gray-800">Education</h3>
-        <div className="space-y-1.5">
-          {data.education.map((edu, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline mb-0.5">
-                <h4 className="text-sm font-bold">{edu.degree}</h4>
-                <span className="text-xs text-gray-600">{edu.duration}</span>
-              </div>
+      {education.length > 0 && (
+        <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
+          <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
+            <span className="text-purple-600">$</span> Education
+          </h2>
+          {education.map((edu) => (
+            <div key={edu.id} className="mb-1.5 last:mb-0">
               <div className="flex justify-between items-baseline">
-                <p className="text-sm text-gray-700">{edu.school}</p>
-                <span className="text-xs text-gray-600">{edu.location}</span>
+                <h3 className="text-sm font-bold text-gray-900">{edu.degree}</h3>
+                <span className="text-xs text-gray-500">{edu.graduationDate}</span>
               </div>
-              {edu.gpa && <p className="text-sm text-gray-600">GPA: {edu.gpa}</p>}
+              <p className="text-xs text-gray-700">{edu.institution}</p>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
+
+      {/* Skills */}
+      {skills && (
+        <section className="bg-white p-3 rounded-lg shadow-sm">
+          <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
+            <span className="text-purple-600">$</span> Tech Stack
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {skills.split(', ').map((skill, idx) => (
+              <span
+                key={idx}
+                className="px-2 py-0.5 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 text-xs rounded border border-purple-200"
+              >
+                {skill.trim()}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

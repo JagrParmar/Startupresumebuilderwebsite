@@ -7,6 +7,8 @@ import Dashboard from "./pages/Dashboard";
 import Templates from "./pages/Templates";
 import ATSCheck from "./pages/ATSCheck";
 import CoverLetter from "./pages/CoverLetter";
+import Builder from "./pages/Builder";
+import TemplateSelector from "./pages/TemplateSelector";
 
 export const router = createBrowserRouter([
   {
@@ -42,5 +44,13 @@ export const router = createBrowserRouter([
   {
     path: "/templates",
     Component: Templates,
+  },
+  {
+    path: "/template-selector",
+    Component: TemplateSelector,
+  },
+  {
+    path: "/builder",
+    Component: Builder,
   },
 ]);

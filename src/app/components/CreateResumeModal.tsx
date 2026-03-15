@@ -35,13 +35,13 @@ export default function CreateResumeModal({ isOpen, onClose }: CreateResumeModal
       setStep("job-details");
     } else {
       handleClose();
-      if (selectedOption === "scratch") {
-        navigate('/templates');
-      } else if (selectedOption === "upload") {
-        // Store the uploaded file in sessionStorage or handle it appropriately
-        sessionStorage.setItem("uploadedFileName", uploadedFile?.name || "");
-        navigate('/dashboard/ats-check');
+      // Store the creation option in sessionStorage
+      sessionStorage.setItem("creationOption", selectedOption);
+      if (selectedOption === "upload" && uploadedFile) {
+        sessionStorage.setItem("uploadedFileName", uploadedFile.name);
       }
+      // Navigate to template selector
+      navigate('/template-selector');
     }
   };
 
@@ -53,17 +53,16 @@ export default function CreateResumeModal({ isOpen, onClose }: CreateResumeModal
     // Store job details in sessionStorage or state management
     sessionStorage.setItem("jobTitle", jobTitle);
     sessionStorage.setItem("jobDescription", jobDescription);
+    // Store the creation option in sessionStorage
+    sessionStorage.setItem("creationOption", selectedOption || "");
+    if (selectedOption === "upload" && uploadedFile) {
+      sessionStorage.setItem("uploadedFileName", uploadedFile.name);
+    }
     
     onClose();
     
-    // Navigate based on selected option
-    if (selectedOption === "scratch") {
-      navigate('/templates');
-    } else if (selectedOption === "upload") {
-      // Store the uploaded file in sessionStorage or handle it appropriately
-      sessionStorage.setItem("uploadedFileName", uploadedFile?.name || "");
-      navigate('/dashboard/ats-check');
-    }
+    // Navigate to template selector
+    navigate('/template-selector');
     
     // Reset state
     setStep("choice");

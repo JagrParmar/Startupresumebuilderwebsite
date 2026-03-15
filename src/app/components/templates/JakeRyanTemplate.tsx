@@ -1,273 +1,195 @@
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 
+interface Experience {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  location: string;
+  graduationDate: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  technologies: string;
+  link: string;
+}
+
 interface ResumeData {
   personalInfo: {
-    name: string;
-    phone: string;
+    fullName: string;
     email: string;
+    phone: string;
+    location: string;
     linkedin: string;
-    github: string;
+    portfolio: string;
+    summary: string;
   };
-  education: Array<{
-    school: string;
-    location: string;
-    degree: string;
-    duration: string;
-  }>;
-  experience: Array<{
-    title: string;
-    company: string;
-    location: string;
-    duration: string;
-    achievements: string[];
-  }>;
-  projects: Array<{
-    name: string;
-    technologies: string;
-    duration: string;
-    achievements: string[];
-  }>;
-  skills: {
-    languages: string;
-    frameworks: string;
-    tools: string;
-    libraries: string;
-  };
+  experiences: Experience[];
+  education: Education[];
+  projects: Project[];
+  skills: string;
 }
 
 interface JakeRyanTemplateProps {
+  scale?: number;
   data?: ResumeData;
 }
 
-const defaultData: ResumeData = {
-  personalInfo: {
-    name: "Jake Ryan",
-    phone: "123-456-7890",
+export default function JakeRyanTemplate({ scale = 1, data }: JakeRyanTemplateProps) {
+  const personalInfo = data?.personalInfo || {
+    fullName: "Jake Ryan",
     email: "jake@su.edu",
+    phone: "123-456-7890",
+    location: "San Francisco, CA",
     linkedin: "linkedin.com/in/jake",
-    github: "github.com/jake",
-  },
-  education: [
-    {
-      school: "Southwestern University",
-      location: "Georgetown, TX",
-      degree: "Bachelor of Arts in Computer Science, Minor in Business",
-      duration: "Aug. 2018 -- May 2021",
-    },
-    {
-      school: "Blinn College",
-      location: "Bryan, TX",
-      degree: "Associate's in Liberal Arts",
-      duration: "Aug. 2014 -- May 2018",
-    },
-  ],
-  experience: [
-    {
-      title: "Undergraduate Research Assistant",
-      company: "Texas A&M University",
-      location: "College Station, TX",
-      duration: "June 2020 -- Present",
-      achievements: [
-        "Developed a REST API using FastAPI and PostgreSQL to store data from learning management systems",
-        "Developed a full-stack web application using Flask, React, PostgreSQL and Docker to analyze GitHub data",
-        "Explored ways to visualize GitHub collaboration in a classroom setting",
-      ],
-    },
-    {
-      title: "Information Technology Support Specialist",
-      company: "Southwestern University",
-      location: "Georgetown, TX",
-      duration: "Sep. 2018 -- Present",
-      achievements: [
-        "Communicate with managers to set up campus computers used on campus",
-        "Assess and troubleshoot computer problems brought by students, faculty and staff",
-        "Maintain upkeep of computers, classroom equipment, and 200 printers across campus",
-      ],
-    },
-    {
-      title: "Artificial Intelligence Research Assistant",
-      company: "Southwestern University",
-      location: "Georgetown, TX",
-      duration: "May 2019 -- July 2019",
-      achievements: [
-        "Explored methods to generate video game dungeons based off of The Legend of Zelda",
-        "Developed a game in Java to test the generated dungeons",
-        "Contributed 50K+ lines of code to an established codebase via Git",
-        "Conducted a human subject study to determine which video game dungeon generation technique is enjoyable",
-        "Wrote an 8-page paper and gave multiple presentations on-campus",
-        "Presented virtually to the World Conference on Computational Intelligence",
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Gitlytics",
-      technologies: "Python, Flask, React, PostgreSQL, Docker",
-      duration: "June 2020 -- Present",
-      achievements: [
-        "Developed a full-stack web application using with Flask serving a REST API with React as the frontend",
-        "Implemented GitHub OAuth to get data from user's repositories",
-        "Visualized GitHub data to show collaboration",
-        "Used Celery and Redis for asynchronous tasks",
-      ],
-    },
-    {
-      name: "Simple Paintball",
-      technologies: "Spigot API, Java, Maven, TravisCI, Git",
-      duration: "May 2018 -- May 2020",
-      achievements: [
-        "Developed a Minecraft server plugin to entertain kids during free time for a previous job",
-        "Published plugin to websites gaining 2K+ downloads and an average 4.5/5-star review",
-        "Implemented continuous delivery using TravisCI to build the plugin upon new a release",
-        "Collaborated with Minecraft server administrators to suggest features and get feedback about the plugin",
-      ],
-    },
-  ],
-  skills: {
-    languages: "Java, Python, C/C++, SQL (Postgres), JavaScript, HTML/CSS, R",
-    frameworks: "React, Node.js, Flask, JUnit, WordPress, Material-UI, FastAPI",
-    tools: "Git, Docker, TravisCI, Google Cloud Platform, VS Code, Visual Studio, PyCharm, IntelliJ, Eclipse",
-    libraries: "pandas, NumPy, Matplotlib",
-  },
-};
+    portfolio: "github.com/jake",
+    summary: "",
+  };
 
-export default function JakeRyanTemplate({ data = defaultData }: JakeRyanTemplateProps) {
+  const experiences = data?.experiences || [];
+  const education = data?.education || [];
+  const projects = data?.projects || [];
+  const skills = data?.skills || "Java, Python, C, SQL, JavaScript, HTML/CSS, React, Angular, Node.js, Flask, JUnit, WordPress, GitHub, VS Code";
+
   return (
-    <div className="w-full max-w-[8.5in] mx-auto bg-white p-12 shadow-lg text-black" style={{ minHeight: "11in" }}>
+    <div 
+      className="bg-white shadow-lg mx-auto" 
+      style={{ 
+        width: `${8.5 * scale}in`, 
+        minHeight: `${11 * scale}in`,
+        padding: `${0.5 * scale}in ${0.75 * scale}in`,
+      }}
+    >
       {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold uppercase tracking-wide mb-2">
-          {data.personalInfo.name}
-        </h1>
-        <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-          <div className="flex items-center gap-1">
-            <Phone className="w-3.5 h-3.5" />
-            <span>{data.personalInfo.phone}</span>
-          </div>
-          <span>|</span>
-          <div className="flex items-center gap-1">
-            <Mail className="w-3.5 h-3.5" />
-            <a href={`mailto:${data.personalInfo.email}`} className="underline">
-              {data.personalInfo.email}
-            </a>
-          </div>
-          <span>|</span>
-          <div className="flex items-center gap-1">
-            <Linkedin className="w-3.5 h-3.5" />
-            <a href={`https://${data.personalInfo.linkedin}`} className="underline">
-              {data.personalInfo.linkedin}
-            </a>
-          </div>
-          <span>|</span>
-          <div className="flex items-center gap-1">
-            <Github className="w-3.5 h-3.5" />
-            <a href={`https://${data.personalInfo.github}`} className="underline">
-              {data.personalInfo.github}
-            </a>
-          </div>
+      <header className="text-center mb-4 pb-2 border-b border-gray-300">
+        <h1 className="text-2xl font-bold mb-2">{personalInfo.fullName}</h1>
+        <div className="flex justify-center items-center gap-3 text-xs flex-wrap">
+          {personalInfo.phone && (
+            <span className="flex items-center gap-1">
+              <Phone className="w-3 h-3" />
+              {personalInfo.phone}
+            </span>
+          )}
+          {personalInfo.email && (
+            <span className="flex items-center gap-1">
+              <Mail className="w-3 h-3" />
+              {personalInfo.email}
+            </span>
+          )}
+          {personalInfo.linkedin && (
+            <span className="flex items-center gap-1">
+              <Linkedin className="w-3 h-3" />
+              {personalInfo.linkedin}
+            </span>
+          )}
+          {personalInfo.portfolio && (
+            <span className="flex items-center gap-1">
+              <Github className="w-3 h-3" />
+              {personalInfo.portfolio}
+            </span>
+          )}
         </div>
-      </div>
+      </header>
 
-      {/* Education Section */}
-      <div className="mb-5">
-        <div className="border-b border-black pb-1 mb-3">
-          <h2 className="text-base font-bold uppercase tracking-wide">Education</h2>
-        </div>
-        <div className="space-y-3">
-          {data.education.map((edu, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-start mb-0.5">
-                <div className="font-bold text-sm">{edu.school}</div>
-                <div className="text-sm">{edu.location}</div>
+      {/* Summary */}
+      {personalInfo.summary && (
+        <section className="mb-3">
+          <h2 className="text-sm font-bold uppercase mb-1.5">Summary</h2>
+          <p className="text-xs leading-relaxed">{personalInfo.summary}</p>
+        </section>
+      )}
+
+      {/* Education */}
+      {education.length > 0 && (
+        <section className="mb-3">
+          <h2 className="text-sm font-bold uppercase mb-1.5">Education</h2>
+          {education.map((edu) => (
+            <div key={edu.id} className="mb-2">
+              <div className="flex justify-between items-baseline">
+                <h3 className="text-sm font-bold">{edu.institution}</h3>
+                <span className="text-xs">{edu.location}</span>
               </div>
-              <div className="flex justify-between items-start">
-                <div className="text-sm italic">{edu.degree}</div>
-                <div className="text-sm italic">{edu.duration}</div>
+              <div className="flex justify-between items-baseline">
+                <p className="text-xs italic">{edu.degree}</p>
+                <span className="text-xs">{edu.graduationDate}</span>
               </div>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
-      {/* Experience Section */}
-      <div className="mb-5">
-        <div className="border-b border-black pb-1 mb-3">
-          <h2 className="text-base font-bold uppercase tracking-wide">Experience</h2>
-        </div>
-        <div className="space-y-3">
-          {data.experience.map((exp, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-start mb-0.5">
-                <div className="font-bold text-sm">{exp.title}</div>
-                <div className="text-sm italic">{exp.duration}</div>
+      {/* Experience */}
+      {experiences.length > 0 && (
+        <section className="mb-3">
+          <h2 className="text-sm font-bold uppercase mb-1.5">Experience</h2>
+          {experiences.map((exp) => (
+            <div key={exp.id} className="mb-2.5">
+              <div className="flex justify-between items-baseline">
+                <h3 className="text-sm font-bold">{exp.title}</h3>
+                <span className="text-xs">
+                  {exp.startDate} - {exp.endDate || "Present"}
+                </span>
               </div>
-              <div className="flex justify-between items-start mb-1.5">
-                <div className="text-sm italic">{exp.company}</div>
-                <div className="text-sm italic">{exp.location}</div>
+              <div className="flex justify-between items-baseline mb-1">
+                <p className="text-xs italic">{exp.company}</p>
+                <span className="text-xs">{exp.location}</span>
               </div>
-              <ul className="list-disc ml-5 space-y-0.5">
-                {exp.achievements.map((achievement, achIndex) => (
-                  <li key={achIndex} className="text-sm leading-relaxed">
-                    {achievement}
-                  </li>
+              <ul className="list-disc ml-5 text-xs space-y-0.5">
+                {exp.description.split('\n').map((line, idx) => (
+                  <li key={idx}>{line.trim().startsWith('•') ? line.substring(1).trim() : line}</li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
-      {/* Projects Section */}
-      <div className="mb-5">
-        <div className="border-b border-black pb-1 mb-3">
-          <h2 className="text-base font-bold uppercase tracking-wide">Projects</h2>
-        </div>
-        <div className="space-y-3">
-          {data.projects.map((project, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-start mb-1.5">
-                <div className="text-sm">
-                  <span className="font-bold">{project.name}</span>
-                  <span className="italic"> | {project.technologies}</span>
-                </div>
-                <div className="text-sm">{project.duration}</div>
+      {/* Projects */}
+      {projects.length > 0 && (
+        <section className="mb-3">
+          <h2 className="text-sm font-bold uppercase mb-1.5">Projects</h2>
+          {projects.map((proj) => (
+            <div key={proj.id} className="mb-2">
+              <div className="flex justify-between items-baseline">
+                <h3 className="text-sm font-bold">
+                  {proj.name} | <span className="font-normal italic">{proj.technologies}</span>
+                </h3>
               </div>
-              <ul className="list-disc ml-5 space-y-0.5">
-                {project.achievements.map((achievement, achIndex) => (
-                  <li key={achIndex} className="text-sm leading-relaxed">
-                    {achievement}
-                  </li>
-                ))}
+              <ul className="list-disc ml-5 text-xs space-y-0.5">
+                <li>{proj.description}</li>
               </ul>
+              {proj.link && <p className="text-xs ml-5 text-gray-600">Link: {proj.link}</p>}
             </div>
           ))}
-        </div>
-      </div>
+        </section>
+      )}
 
-      {/* Technical Skills Section */}
-      <div className="mb-2">
-        <div className="border-b border-black pb-1 mb-3">
-          <h2 className="text-base font-bold uppercase tracking-wide">Technical Skills</h2>
-        </div>
-        <div className="space-y-1.5 text-sm">
-          <div>
-            <span className="font-bold">Languages: </span>
-            <span>{data.skills.languages}</span>
+      {/* Technical Skills */}
+      {skills && (
+        <section>
+          <h2 className="text-sm font-bold uppercase mb-1.5">Technical Skills</h2>
+          <div className="text-xs flex flex-wrap items-center gap-2">
+            {skills.split(', ').map((skill, idx, arr) => (
+              <span key={idx} className="flex items-center gap-2">
+                <span>{skill.trim()}</span>
+                {idx < arr.length - 1 && <span className="text-gray-400">|</span>}
+              </span>
+            ))}
           </div>
-          <div>
-            <span className="font-bold">Frameworks: </span>
-            <span>{data.skills.frameworks}</span>
-          </div>
-          <div>
-            <span className="font-bold">Developer Tools: </span>
-            <span>{data.skills.tools}</span>
-          </div>
-          <div>
-            <span className="font-bold">Libraries: </span>
-            <span>{data.skills.libraries}</span>
-          </div>
-        </div>
-      </div>
+        </section>
+      )}
     </div>
   );
 }
