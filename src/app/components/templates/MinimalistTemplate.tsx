@@ -67,6 +67,24 @@ export default function MinimalistTemplate({ scale = 1, data }: MinimalistTempla
       endDate: "Present",
       description: "• Develop and execute integrated marketing campaigns across digital and traditional channels, generating $3M in new business\n• Manage team of 5 marketing specialists and collaborate with creative, sales, and product teams\n• Analyze campaign performance metrics and provide data-driven recommendations to optimize ROI\n• Lead brand strategy initiatives and maintain brand consistency across all marketing materials",
     },
+    {
+      id: "2",
+      title: "Digital Marketing Specialist",
+      company: "Tech Innovations Inc.",
+      location: "Portland, OR",
+      startDate: "2017",
+      endDate: "2020",
+      description: "• Planned and executed digital marketing campaigns including SEO, SEM, email, and social media\n• Increased website traffic by 150% and conversion rate by 45% through optimization strategies\n• Managed marketing automation platform and created targeted customer segmentation\n• Collaborated with content team to develop engaging blog posts and social media content",
+    },
+    {
+      id: "3",
+      title: "Marketing Coordinator",
+      company: "Retail Solutions LLC",
+      location: "Portland, OR",
+      startDate: "2015",
+      endDate: "2017",
+      description: "• Coordinated marketing events, trade shows, and promotional campaigns\n• Created marketing collateral including brochures, presentations, and newsletters\n• Maintained social media presence and engaged with customers across platforms\n• Tracked marketing budget and reported on campaign performance to leadership",
+    },
   ];
 
   const education = data?.education || [

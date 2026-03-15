@@ -1,13 +1,38 @@
 import { useState } from "react";
-import { FileText, Wand2, Download, Eye, Copy } from "lucide-react";
+import { FileText, Wand2, Download, Eye, Copy, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "../components/ui/dialog";
 import DashboardLayout from "../components/DashboardLayout";
+import ATSCoverLetterTemplate from "../components/templates/ATSCoverLetterTemplate";
 
 export default function CoverLetter() {
   const [generating, setGenerating] = useState(false);
   const [generated, setGenerated] = useState(false);
+  const [showFullPreview, setShowFullPreview] = useState(false);
+  const [formData, setFormData] = useState({
+    jobTitle: "Senior Software Engineer",
+    companyName: "Google",
+    hiringManagerName: "",
+    jobDescription: "We are looking for a Senior Software Engineer to join our team...",
+    skills: "React, TypeScript, Node.js, AWS",
+    tone: "Professional",
+    yourName: "Michael Chen",
+    email: "michael.chen@email.com",
+    phone: "(512) 555-0123",
+    address: "123 Main Street",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78701",
+  });
 
   const handleGenerate = () => {
     setGenerating(true);
@@ -15,6 +40,10 @@ export default function CoverLetter() {
       setGenerating(false);
       setGenerated(true);
     }, 2000);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -53,7 +82,8 @@ export default function CoverLetter() {
                       type="text"
                       placeholder="e.g., Senior Software Engineer"
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      defaultValue="Senior Software Engineer"
+                      value={formData.jobTitle}
+                      onChange={(e) => handleInputChange("jobTitle", e.target.value)}
                     />
                   </div>
 
@@ -63,7 +93,8 @@ export default function CoverLetter() {
                       type="text"
                       placeholder="e.g., Google"
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      defaultValue="Google"
+                      value={formData.companyName}
+                      onChange={(e) => handleInputChange("companyName", e.target.value)}
                     />
                   </div>
 
@@ -73,6 +104,8 @@ export default function CoverLetter() {
                       type="text"
                       placeholder="e.g., Jane Smith"
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.hiringManagerName}
+                      onChange={(e) => handleInputChange("hiringManagerName", e.target.value)}
                     />
                   </div>
 
@@ -82,7 +115,8 @@ export default function CoverLetter() {
                       rows={6}
                       placeholder="Paste the job description here..."
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-                      defaultValue="We are looking for a Senior Software Engineer to join our team..."
+                      value={formData.jobDescription}
+                      onChange={(e) => handleInputChange("jobDescription", e.target.value)}
                     />
                   </div>
 
@@ -92,18 +126,100 @@ export default function CoverLetter() {
                       type="text"
                       placeholder="e.g., React, Python, AWS"
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      defaultValue="React, TypeScript, Node.js, AWS"
+                      value={formData.skills}
+                      onChange={(e) => handleInputChange("skills", e.target.value)}
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-semibold mb-2">Tone</label>
-                    <select className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <select
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.tone}
+                      onChange={(e) => handleInputChange("tone", e.target.value)}
+                    >
                       <option>Professional</option>
                       <option>Enthusiastic</option>
                       <option>Formal</option>
                       <option>Conversational</option>
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Your Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., Michael Chen"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.yourName}
+                      onChange={(e) => handleInputChange("yourName", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Email</label>
+                    <input
+                      type="email"
+                      placeholder="e.g., michael.chen@email.com"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Phone</label>
+                    <input
+                      type="tel"
+                      placeholder="e.g., (512) 555-0123"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Address</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., 123 Main Street"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.address}
+                      onChange={(e) => handleInputChange("address", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">City</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., Austin"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.city}
+                      onChange={(e) => handleInputChange("city", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">State</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., TX"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.state}
+                      onChange={(e) => handleInputChange("state", e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Zip Code</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., 78701"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      value={formData.zipCode}
+                      onChange={(e) => handleInputChange("zipCode", e.target.value)}
+                    />
                   </div>
 
                   <Button 
@@ -138,6 +254,10 @@ export default function CoverLetter() {
                     </CardTitle>
                     {generated && (
                       <div className="flex gap-2">
+                        <Button variant="outline" size="sm" onClick={() => setShowFullPreview(true)}>
+                          <Eye className="w-4 h-4 mr-1" />
+                          Preview Template
+                        </Button>
                         <Button variant="outline" size="sm">
                           <Copy className="w-4 h-4 mr-1" />
                           Copy
@@ -159,44 +279,41 @@ export default function CoverLetter() {
                       </div>
                     </div>
                   ) : (
-                    <div className="prose prose-sm max-w-none">
-                      <div className="bg-white p-6 border rounded-lg">
-                        <p className="text-sm text-gray-600 mb-4">John Doe<br />
-                        john.doe@email.com<br />
-                        (555) 123-4567</p>
-                        
-                        <p className="text-sm text-gray-600 mb-4">
-                          {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                        </p>
-
-                        <p className="text-sm text-gray-600 mb-6">
-                          Hiring Manager<br />
-                          Google<br />
-                          Mountain View, CA
-                        </p>
-
-                        <p className="text-sm mb-4">Dear Hiring Manager,</p>
-
-                        <p className="text-sm mb-4">
-                          I am writing to express my strong interest in the Senior Software Engineer position at Google. With extensive experience in React, TypeScript, Node.js, and AWS, I am confident that my technical expertise and passion for innovation make me an ideal candidate for this role.
-                        </p>
-
-                        <p className="text-sm mb-4">
-                          Throughout my career, I have consistently delivered high-quality software solutions that drive business value. My proficiency in modern web technologies, combined with my ability to work collaboratively in fast-paced environments, has enabled me to contribute meaningfully to every team I've joined. I am particularly excited about the opportunity to work at Google, a company renowned for its commitment to technological excellence and innovation.
-                        </p>
-
-                        <p className="text-sm mb-4">
-                          My experience with React and TypeScript has allowed me to build scalable, maintainable applications that prioritize user experience and performance. Additionally, my familiarity with Node.js and AWS demonstrates my full-stack capabilities and understanding of cloud infrastructure—skills that I understand are crucial for this position.
-                        </p>
-
-                        <p className="text-sm mb-4">
-                          I am eager to bring my technical skills, problem-solving abilities, and enthusiasm to the Google team. Thank you for considering my application. I look forward to the opportunity to discuss how my experience and skills align with your needs.
-                        </p>
-
-                        <p className="text-sm mb-4">
-                          Sincerely,<br />
-                          John Doe
-                        </p>
+                    <div className="bg-gray-100 p-4 rounded-lg flex justify-center overflow-auto max-h-[800px]">
+                      <div className="transform scale-50 origin-top">
+                        <ATSCoverLetterTemplate
+                          data={{
+                            personalInfo: {
+                              fullName: formData.yourName.toUpperCase(),
+                              email: formData.email,
+                              phone: formData.phone,
+                              address: formData.address,
+                              city: formData.city,
+                              state: formData.state,
+                              zipCode: formData.zipCode,
+                            },
+                            recipientInfo: {
+                              hiringManagerName: formData.hiringManagerName || undefined,
+                              title: "Hiring Manager",
+                              companyName: formData.companyName,
+                              companyAddress: "",
+                              companyCity: "",
+                              companyState: "",
+                              companyZipCode: "",
+                            },
+                            jobInfo: {
+                              jobTitle: formData.jobTitle,
+                              jobDescription: formData.jobDescription,
+                            },
+                            content: {
+                              opening: `I am writing to express my strong interest in the ${formData.jobTitle} position at ${formData.companyName}. With extensive experience in ${formData.skills}, I am confident that my technical expertise and passion for innovation make me an ideal candidate for this role.`,
+                              body1: `Throughout my career, I have consistently delivered high-quality software solutions that drive business value. My proficiency in modern web technologies, combined with my ability to work collaboratively in fast-paced environments, has enabled me to contribute meaningfully to every team I've joined. I am particularly excited about the opportunity to work at ${formData.companyName}, a company renowned for its commitment to technological excellence and innovation.`,
+                              body2: `My experience with React and TypeScript has allowed me to build scalable, maintainable applications that prioritize user experience and performance. Additionally, my familiarity with Node.js and AWS demonstrates my full-stack capabilities and understanding of cloud infrastructure—skills that I understand are crucial for this position.`,
+                              body3: `I have consistently demonstrated my ability to work collaboratively in Agile environments, mentor junior developers, and deliver high-quality software on schedule. My technical skills are complemented by strong problem-solving abilities and effective communication skills, enabling me to bridge the gap between technical teams and stakeholders.`,
+                              closing: `I am enthusiastic about the possibility of bringing my technical expertise, leadership experience, and passion for innovation to ${formData.companyName}. I would welcome the opportunity to discuss how my background and skills align with your team's needs. Thank you for considering my application. I look forward to speaking with you soon.`,
+                            },
+                          }}
+                        />
                       </div>
                     </div>
                   )}
@@ -232,6 +349,69 @@ export default function CoverLetter() {
           )}
         </div>
       </main>
+
+      {/* Preview Modal */}
+      <Dialog open={showFullPreview} onOpenChange={setShowFullPreview}>
+        <DialogContent className="max-w-[95vw] w-[900px] max-h-[90vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-purple-600" />
+              Cover Letter Preview
+            </DialogTitle>
+            <DialogDescription>
+              This is a preview of the cover letter template that will be generated based on the details you provided.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="bg-gray-100 p-4 rounded-lg overflow-y-auto max-h-[calc(90vh-200px)]">
+            <div className="flex justify-center">
+              <div className="transform scale-[0.65] origin-top">
+                <ATSCoverLetterTemplate
+                  data={{
+                    personalInfo: {
+                      fullName: formData.yourName.toUpperCase(),
+                      email: formData.email,
+                      phone: formData.phone,
+                      address: formData.address,
+                      city: formData.city,
+                      state: formData.state,
+                      zipCode: formData.zipCode,
+                    },
+                    recipientInfo: {
+                      hiringManagerName: formData.hiringManagerName || undefined,
+                      title: "Hiring Manager",
+                      companyName: formData.companyName,
+                      companyAddress: "",
+                      companyCity: "",
+                      companyState: "",
+                      companyZipCode: "",
+                    },
+                    jobInfo: {
+                      jobTitle: formData.jobTitle,
+                      jobDescription: formData.jobDescription,
+                    },
+                    content: {
+                      opening: `I am writing to express my strong interest in the ${formData.jobTitle} position at ${formData.companyName}. With extensive experience in ${formData.skills}, I am confident that my technical expertise and passion for innovation make me an ideal candidate for this role.`,
+                      body1: `Throughout my career, I have consistently delivered high-quality software solutions that drive business value. My proficiency in modern web technologies, combined with my ability to work collaboratively in fast-paced environments, has enabled me to contribute meaningfully to every team I've joined. I am particularly excited about the opportunity to work at ${formData.companyName}, a company renowned for its commitment to technological excellence and innovation.`,
+                      body2: `My experience with React and TypeScript has allowed me to build scalable, maintainable applications that prioritize user experience and performance. Additionally, my familiarity with Node.js and AWS demonstrates my full-stack capabilities and understanding of cloud infrastructure—skills that I understand are crucial for this position.`,
+                      body3: `I have consistently demonstrated my ability to work collaboratively in Agile environments, mentor junior developers, and deliver high-quality software on schedule. My technical skills are complemented by strong problem-solving abilities and effective communication skills, enabling me to bridge the gap between technical teams and stakeholders.`,
+                      closing: `I am enthusiastic about the possibility of bringing my technical expertise, leadership experience, and passion for innovation to ${formData.companyName}. I would welcome the opportunity to discuss how my background and skills align with your team's needs. Thank you for considering my application. I look forward to speaking with you soon.`,
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowFullPreview(false)}>
+              Close
+            </Button>
+            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 }

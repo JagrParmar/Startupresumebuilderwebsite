@@ -16,7 +16,7 @@ import {
   Award,
   TrendingUp
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
@@ -29,6 +29,7 @@ import { sampleResumeData, softwareEngineerData, marketingManagerData, techResum
 
 export default function Home() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const navigate = useNavigate();
 
   const stats = [
     { value: "100K+", label: "Resumes Created" },
@@ -271,7 +272,7 @@ export default function Home() {
                   </div>
                 </li>
               </ul>
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/50 transform hover:-translate-y-0.5 transition-all duration-300">
+              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/50 transform hover:-translate-y-0.5 transition-all duration-300" onClick={() => navigate('/signup')}>
                 Try Builder Now
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

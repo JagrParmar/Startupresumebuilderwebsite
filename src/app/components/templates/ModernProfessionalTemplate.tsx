@@ -58,9 +58,60 @@ export default function ModernProfessionalTemplate({ scale = 1, data }: ModernPr
     summary: "Results-driven Product Manager with 8+ years of experience leading cross-functional teams to deliver innovative digital products. Proven track record of driving product strategy, increasing user engagement, and achieving business objectives in fast-paced environments.",
   };
 
-  const experiences = data?.experiences || [];
-  const education = data?.education || [];
-  const projects = data?.projects || [];
+  const experiences = data?.experiences || [
+    {
+      id: "1",
+      title: "Senior Product Manager",
+      company: "TechCorp Inc.",
+      location: "San Francisco, CA",
+      startDate: "March 2021",
+      endDate: "Present",
+      description: "• Lead product strategy and roadmap for B2B SaaS platform serving 10,000+ enterprise customers\n• Increased user engagement by 45% through data-driven feature prioritization and UX improvements\n• Managed cross-functional team of 12 engineers, designers, and analysts to deliver quarterly OKRs\n• Launched 3 major product features that generated $2M in additional annual revenue",
+    },
+    {
+      id: "2",
+      title: "Product Manager",
+      company: "Digital Solutions Ltd.",
+      location: "San Francisco, CA",
+      startDate: "June 2018",
+      endDate: "February 2021",
+      description: "• Owned end-to-end product lifecycle for mobile app with 500K+ monthly active users\n• Conducted user research and A/B testing to validate product hypotheses and improve conversion rates by 30%\n• Collaborated with engineering team to define technical requirements and ensure on-time delivery\n• Presented product vision and quarterly updates to C-level executives and stakeholders",
+    },
+    {
+      id: "3",
+      title: "Associate Product Manager",
+      company: "StartupXYZ",
+      location: "San Francisco, CA",
+      startDate: "August 2016",
+      endDate: "May 2018",
+      description: "• Assisted in product discovery and development for early-stage fintech platform\n• Gathered customer feedback through interviews and surveys to inform product decisions\n• Created product requirements documents and user stories for development team\n• Tracked key metrics and reported on product performance to leadership team",
+    },
+  ];
+  const education = data?.education || [
+    {
+      id: "1",
+      degree: "Master of Business Administration (MBA)",
+      institution: "Stanford Graduate School of Business",
+      location: "Stanford, CA",
+      graduationDate: "June 2016",
+    },
+    {
+      id: "2",
+      degree: "Bachelor of Science in Computer Science",
+      institution: "UC Berkeley",
+      location: "Berkeley, CA",
+      graduationDate: "May 2014",
+    },
+  ];
+  const projects = data?.projects || [
+    {
+      id: "1",
+      name: "AI-Powered Recommendation Engine",
+      description: "Led development of machine learning-based recommendation system that increased product discovery by 50% and drove 25% increase in average order value",
+      technologies: "Python, TensorFlow, AWS, SQL",
+      link: "",
+    },
+  ];
   const skills = data?.skills || "Product Strategy, Roadmap Planning, Agile/Scrum, User Research, A/B Testing, SQL, JIRA, Figma, Analytics (Google Analytics, Mixpanel), Stakeholder Management";
 
   return (

@@ -58,9 +58,67 @@ export default function JakeRyanTemplate({ scale = 1, data }: JakeRyanTemplatePr
     summary: "",
   };
 
-  const experiences = data?.experiences || [];
-  const education = data?.education || [];
-  const projects = data?.projects || [];
+  const experiences = data?.experiences || [
+    {
+      id: "1",
+      title: "Software Engineer Intern",
+      company: "Google",
+      location: "Mountain View, CA",
+      startDate: "May 2023",
+      endDate: "August 2023",
+      description: "• Developed a REST API using FastAPI and PostgreSQL to store data from college sports rankings\n• Used Docker to deploy the application to AWS EC2 and configured CI/CD pipeline with GitHub Actions\n• Collaborated with team of 4 engineers to implement new features using Agile methodology",
+    },
+    {
+      id: "2",
+      title: "Information Technology Project Management Intern",
+      company: "Southwestern Consulting",
+      location: "Dallas, TX",
+      startDate: "June 2022",
+      endDate: "August 2022",
+      description: "• Developed scripts using Python and Bash to analyze over 10GB of data\n• Automated backup and data storage processes using SQL queries and Python scripts\n• Designed and implemented a database migration from MySQL to PostgreSQL",
+    },
+    {
+      id: "3",
+      title: "Artificial Intelligence Research Assistant",
+      company: "Headstarter AI",
+      location: "Remote",
+      startDate: "September 2021",
+      endDate: "May 2022",
+      description: "• Explored methods to generate video game dungeons based on The Legend of Zelda using machine learning\n• Developed and trained a model using TensorFlow and PyTorch on 50+ hours of gameplay data\n• Presented findings at university research symposium",
+    },
+  ];
+  const education = data?.education || [
+    {
+      id: "1",
+      degree: "Bachelor of Science in Computer Science",
+      institution: "Southwestern University",
+      location: "Georgetown, TX",
+      graduationDate: "May 2024",
+    },
+  ];
+  const projects = data?.projects || [
+    {
+      id: "1",
+      name: "Gitlytics",
+      description: "Developed a web application using Flask and React to analyze GitHub profile data and visualize contribution patterns. Integrated GitHub API to fetch user statistics and display insights using Chart.js.",
+      technologies: "Python, Flask, React, PostgreSQL, Docker",
+      link: "",
+    },
+    {
+      id: "2",
+      name: "Simple Paintball",
+      description: "Created a fast-paced multiplayer first-person shooter game in Java using LibGDX framework. Implemented networked multiplayer functionality supporting 8+ concurrent players with low latency.",
+      technologies: "Java, LibGDX, Maven",
+      link: "",
+    },
+    {
+      id: "3",
+      name: "OP Music Accompaniment",
+      description: "Built a web app for generating music accompaniments using machine learning models. Trained LSTM neural network on MIDI files to generate harmonically compatible accompaniment tracks.",
+      technologies: "Python, TensorFlow, Flask, JavaScript",
+      link: "",
+    },
+  ];
   const skills = data?.skills || "Java, Python, C, SQL, JavaScript, HTML/CSS, React, Angular, Node.js, Flask, JUnit, WordPress, GitHub, VS Code";
 
   return (

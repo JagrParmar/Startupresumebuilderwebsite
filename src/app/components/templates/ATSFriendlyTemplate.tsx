@@ -67,6 +67,24 @@ export default function ATSFriendlyTemplate({ scale = 1, data }: ATSFriendlyTemp
       endDate: "Present",
       description: "• Architected and developed microservices-based platform using Node.js, Express, and PostgreSQL serving 500K+ users\n• Led team of 4 engineers to deliver new features, reducing sprint cycle time by 30% through improved workflows\n• Optimized database queries and implemented Redis caching, improving API response times by 60%\n• Implemented CI/CD pipeline using GitHub Actions and Docker, reducing deployment time from 2 hours to 15 minutes",
     },
+    {
+      id: "2",
+      title: "Software Engineer",
+      company: "TechStart Inc.",
+      location: "Austin, TX",
+      startDate: "June 2019",
+      endDate: "December 2021",
+      description: "• Developed and maintained RESTful APIs using Node.js and Express for mobile and web applications\n• Built responsive front-end interfaces with React and Redux, improving user engagement by 40%\n• Collaborated with product team to define technical requirements and deliver features on schedule\n• Wrote comprehensive unit and integration tests using Jest and React Testing Library",
+    },
+    {
+      id: "3",
+      title: "Junior Developer",
+      company: "Digital Innovations",
+      location: "Austin, TX",
+      startDate: "August 2018",
+      endDate: "May 2019",
+      description: "• Assisted in development of customer-facing web applications using JavaScript, HTML, and CSS\n• Fixed bugs and implemented minor features across multiple projects\n• Participated in code reviews and contributed to team documentation",
+    },
   ];
 
   const education = data?.education || [
@@ -85,6 +103,20 @@ export default function ATSFriendlyTemplate({ scale = 1, data }: ATSFriendlyTemp
       name: "E-Commerce Platform",
       description: "Built full-stack e-commerce application with user authentication, shopping cart, and payment processing",
       technologies: "React, Node.js, MongoDB, Stripe",
+      link: "",
+    },
+    {
+      id: "2",
+      name: "Task Management App",
+      description: "Developed real-time collaborative task management tool with drag-and-drop interface and team features",
+      technologies: "React, Firebase, Material-UI",
+      link: "",
+    },
+    {
+      id: "3",
+      name: "Weather Dashboard",
+      description: "Created responsive weather application with location-based forecasts and interactive data visualizations",
+      technologies: "JavaScript, React, OpenWeather API, Chart.js",
       link: "",
     },
   ];

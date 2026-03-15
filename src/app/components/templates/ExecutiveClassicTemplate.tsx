@@ -56,8 +56,51 @@ export default function ExecutiveClassicTemplate({ scale = 1, data }: ExecutiveC
     summary: "Strategic executive leader with 15+ years of experience driving organizational growth and operational excellence. Proven expertise in corporate strategy, P&L management, and leading high-performing teams to achieve ambitious business objectives.",
   };
 
-  const experiences = data?.experiences || [];
-  const education = data?.education || [];
+  const experiences = data?.experiences || [
+    {
+      id: "1",
+      title: "Chief Operating Officer (COO)",
+      company: "Enterprise Solutions Corp",
+      location: "Washington, DC",
+      startDate: "January 2020",
+      endDate: "Present",
+      description: "• Lead operational strategy and execution for $500M technology services company with 800+ employees\n• Increased operational efficiency by 35% through process optimization and digital transformation initiatives\n• Managed P&L responsibility for four business units, achieving 20% year-over-year revenue growth\n• Built and mentored executive leadership team of 12 directors, improving employee retention by 25%\n• Spearheaded merger integration of two acquisitions totaling $150M, exceeding synergy targets",
+    },
+    {
+      id: "2",
+      title: "Vice President of Operations",
+      company: "TechVentures International",
+      location: "New York, NY",
+      startDate: "March 2015",
+      endDate: "December 2019",
+      description: "• Directed operations for global B2B software division with $200M annual revenue across 15 countries\n• Implemented Lean Six Sigma methodologies reducing operational costs by $15M annually\n• Led cross-functional teams of 200+ employees to deliver strategic initiatives on time and budget\n• Developed and executed go-to-market strategy for new product line generating $50M in first year\n• Presented quarterly business reviews to board of directors and C-suite executives",
+    },
+    {
+      id: "3",
+      title: "Director of Business Development",
+      company: "Global Consulting Partners",
+      location: "Boston, MA",
+      startDate: "June 2010",
+      endDate: "February 2015",
+      description: "• Managed portfolio of Fortune 500 clients with combined contract value of $75M\n• Expanded client base by 40% through strategic partnerships and business development initiatives\n• Led proposal development and contract negotiations for enterprise deals averaging $5M-10M\n• Collaborated with C-level executives to align business objectives with client deliverables\n• Mentored team of 8 business development managers and account executives",
+    },
+  ];
+  const education = data?.education || [
+    {
+      id: "1",
+      degree: "Master of Business Administration (MBA)",
+      institution: "Harvard Business School",
+      location: "Boston, MA",
+      graduationDate: "May 2010",
+    },
+    {
+      id: "2",
+      degree: "Bachelor of Science in Economics",
+      institution: "University of Pennsylvania",
+      location: "Philadelphia, PA",
+      graduationDate: "May 2005",
+    },
+  ];
   const projects = data?.projects || [];
   const skills = data?.skills || "Strategic Planning, P&L Management, Business Development, Team Leadership, Operations Management, Financial Analysis, Change Management, Stakeholder Engagement";
 

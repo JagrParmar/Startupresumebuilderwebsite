@@ -188,6 +188,7 @@ export default function Templates() {
             <Card
               key={template.id}
               className="border-2 hover:shadow-2xl hover:border-purple-400 transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+              onClick={() => setSelectedTemplate(template)}
             >
               <CardContent className="p-6">
                 {/* Template Preview Placeholder */}
@@ -240,7 +241,10 @@ export default function Templates() {
                       variant="outline"
                       size="sm"
                       className="flex-1"
-                      onClick={() => setSelectedTemplate(template)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedTemplate(template);
+                      }}
                     >
                       <Eye className="w-4 h-4 mr-1" />
                       Preview
@@ -248,6 +252,7 @@ export default function Templates() {
                     <Button
                       size="sm"
                       className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       Use Template
                     </Button>

@@ -58,9 +58,60 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
     summary: "Full-stack developer passionate about building scalable applications and clean code. Experienced in modern JavaScript frameworks and cloud technologies.",
   };
 
-  const experiences = data?.experiences || [];
-  const education = data?.education || [];
-  const projects = data?.projects || [];
+  const experiences = data?.experiences || [
+    {
+      id: "1",
+      title: "Senior Full Stack Developer",
+      company: "CloudScale Technologies",
+      location: "Seattle, WA",
+      startDate: "Jan 2022",
+      endDate: "Present",
+      description: "• Architected and built microservices using Node.js, Express, and GraphQL serving 1M+ requests/day\n• Implemented real-time features using WebSockets and Redis pub/sub, reducing latency by 70%\n• Led migration from monolith to microservices architecture, improving deployment frequency by 5x\n• Mentored team of 3 junior developers and established coding standards and best practices",
+    },
+    {
+      id: "2",
+      title: "Full Stack Developer",
+      company: "DevHub Solutions",
+      location: "Seattle, WA",
+      startDate: "Jun 2019",
+      endDate: "Dec 2021",
+      description: "• Built and maintained React/TypeScript SPAs with focus on performance and accessibility\n• Developed RESTful APIs using Node.js and PostgreSQL with comprehensive test coverage\n• Implemented CI/CD pipelines with GitHub Actions and Docker, automating deployment process\n• Collaborated with designers and product managers in Agile sprints to deliver features",
+    },
+    {
+      id: "3",
+      title: "Software Developer",
+      company: "WebCraft Studios",
+      location: "Portland, OR",
+      startDate: "Aug 2017",
+      endDate: "May 2019",
+      description: "• Developed responsive web applications using JavaScript, React, and CSS3\n• Integrated third-party APIs and payment systems (Stripe, PayPal) for e-commerce platforms\n• Optimized database queries and implemented caching strategies to improve performance\n• Participated in code reviews and contributed to team knowledge sharing sessions",
+    },
+  ];
+  const education = data?.education || [
+    {
+      id: "1",
+      degree: "Bachelor of Science in Computer Science",
+      institution: "University of Washington",
+      location: "Seattle, WA",
+      graduationDate: "May 2017",
+    },
+  ];
+  const projects = data?.projects || [
+    {
+      id: "1",
+      name: "DevCollaborator",
+      description: "Real-time code collaboration platform with live editing, video chat, and whiteboarding features. Built with WebRTC, Socket.io, and MongoDB. 5K+ active users.",
+      technologies: "React, Node.js, Socket.io, MongoDB, WebRTC",
+      link: "",
+    },
+    {
+      id: "2",
+      name: "CloudDeploy CLI",
+      description: "Open-source command-line tool for simplified cloud deployments. Supports AWS, GCP, and Azure. 500+ stars on GitHub.",
+      technologies: "Node.js, Commander.js, AWS SDK",
+      link: "",
+    },
+  ];
   const skills = data?.skills || "JavaScript, TypeScript, Python, React, Node.js, Next.js, GraphQL, PostgreSQL, MongoDB, Redis, Docker, Kubernetes, AWS, CI/CD, Git";
 
   return (
@@ -110,7 +161,7 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
       {personalInfo.summary && (
         <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
           <h2 className="text-sm font-bold uppercase text-purple-600 mb-1.5 flex items-center gap-1">
-            <span className="text-purple-600">$</span> About
+             About
           </h2>
           <p className="text-xs text-gray-800 leading-relaxed">{personalInfo.summary}</p>
         </section>
@@ -120,7 +171,7 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
       {experiences.length > 0 && (
         <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
           <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
-            <span className="text-purple-600">$</span> Experience
+             Experience
           </h2>
           {experiences.map((exp) => (
             <div key={exp.id} className="mb-2.5 last:mb-0">
@@ -148,7 +199,7 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
       {projects.length > 0 && (
         <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
           <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
-            <span className="text-purple-600">$</span> Projects
+             Projects
           </h2>
           {projects.map((proj) => (
             <div key={proj.id} className="mb-2 last:mb-0">
@@ -171,7 +222,7 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
       {education.length > 0 && (
         <section className="mb-3 bg-white p-3 rounded-lg shadow-sm">
           <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
-            <span className="text-purple-600">$</span> Education
+             Education
           </h2>
           {education.map((edu) => (
             <div key={edu.id} className="mb-1.5 last:mb-0">
@@ -189,7 +240,7 @@ export default function TechSavvyTemplate({ scale = 1, data }: TechSavvyTemplate
       {skills && (
         <section className="bg-white p-3 rounded-lg shadow-sm">
           <h2 className="text-sm font-bold uppercase text-purple-600 mb-2 flex items-center gap-1">
-            <span className="text-purple-600">$</span> Tech Stack
+             Tech Stack
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.split(', ').map((skill, idx) => (
